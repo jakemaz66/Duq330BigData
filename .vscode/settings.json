@@ -1,7 +1,7 @@
 {
-    "python.pythonPath": "/Users/arthur/duq/duq_ds3_2023/.venv/bin/python3.12",
-  
-    "workbench.colorCustomizations": {
+  "python.pythonPath": "C:\\Users\\jakem\\OneDrive\\Documents\\Visual Studio 2017\\Duq330BigData\\.venv\\bin\\python3.12",
+
+  "workbench.colorCustomizations": {
       "activityBar.background": "#773696"
-    }
   }
+}
