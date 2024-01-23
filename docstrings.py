@@ -18,5 +18,5 @@ def create_new_dataframe() -> pd.DataFrame:
     returns:
     pd.DataFrame: dataframe containing dummy data
     """
-    return
+    return pd.DataFrame([1,2,3])
 
