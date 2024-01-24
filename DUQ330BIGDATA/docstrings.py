@@ -2,7 +2,7 @@ from typing import Union
 import pandas as pd
 
 
-def add (a,b) -> Union[int, float]:
+def add (a: int or float, b: int or float) -> Union[int, float]:
     """
     args:
     a: number 1
