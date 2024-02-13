@@ -9,8 +9,11 @@ def read(path):
             'NPI': 'npi',
             'Provider Last Name (Legal Name)': 'last_name',
             'Provider First Name': 'first_name',
-            'Provider First Line Business Mailing Address': 'address',
-            'Certification Date': 'cert_date'
+            'Provider First Line Business Practice Location Address': 'address',
+            'Certification Date': 'cert_date',
+            'Provider Business Practice Location Address State Name': 'city',
+            'Provider Business Practice Location Address State Name': 'state',
+            'Provider Business Practice Location Address Country Code (If outside U.S.)': 'country'
         }
     
     df = df.rename(columns=mapper)[mapper.values()]
