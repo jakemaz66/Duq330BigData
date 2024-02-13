@@ -1,4 +1,6 @@
 import pandas as pd
+from sklearn.model_selection import train_test_split
+import pickle
 
 class GrantsData:
     def __init__(self, path: str):
@@ -67,7 +69,8 @@ class GrantsData:
 
         print(df)
 
-        
+
+
 
 
 
@@ -81,7 +84,7 @@ def read_grants_year(year: int or str) -> pd.DataFrame:
         pd.DataFrame: clean dataframe of grants data
     """
     # We know the filename is: RePORTER_PRJ_C_FY2022.zip
-    path = r'C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\.vscode\RePORTER_PRJ_C_FY{year}.zip'
+    path = r'C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\data\RePORTER_PRJ_C_FY2022.zip'
     gd = GrantsData(path.format(year=year))
     return gd.read()
 
