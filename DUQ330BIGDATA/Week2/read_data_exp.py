@@ -74,7 +74,7 @@ class GrantsData:
 
 
 
-def read_grants_year(year: int or str) -> pd.DataFrame:
+def read_grants_year(year: int | str) -> pd.DataFrame:
     """Read in Grants Data for a year and return as clean dataframe
 
     Args:
