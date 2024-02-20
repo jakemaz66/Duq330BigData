@@ -5,11 +5,11 @@ from DUQ330BIGDATA.Week2 import read_data_exp
 data = npi_grants_combine.read(r"data/npidata_pfile_20240205-20240211.csv")
 
 
-nd = distances.NameDistance(r"C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\DUQ330BIGDATA\Week5")
-nd.training_data(data)
+nd = distances.NameDistance()
+df = nd.training_data(data)
 
 
 dc = distance_classifier.DistanceClassifier(r"C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\DUQ330BIGDATA\Week4", 'data')
 
-#dc.train(df)
-#dc.save('distance_classifier')
+dc.train(df)
+dc.save('distance_classifier')
