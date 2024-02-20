@@ -9,12 +9,16 @@ class GrantsData:
     def read(self) -> pd.DataFrame:
         """Returns a cleaned dataframe"""
         df = self._select_columns(self.df)
-        df = self._clean(df)
+        self.df = self._clean(df)
+
+        return self.df
+
         # Data can have NaNs
         # Different types (reasonable)
         # Different types (unreasonable)
-        print(self.df)
-        print(self.df.isna().sum())
+        #print(self.df)
+        #print(self.df.isna().sum())
+
 
     @staticmethod
     def _select_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -67,14 +71,14 @@ class GrantsData:
         # Pattern. Budgets may typically start on a certain date as well, and choosing the mode would capture this.
         df['budget_start'].fillna(start_mode, inplace=True)
 
-        print(df)
+        return df
 
 
 
 
 
 
-def read_grants_year(year: int | str) -> pd.DataFrame:
+def read_grants_year(year) -> pd.DataFrame:
     """Read in Grants Data for a year and return as clean dataframe
 
     Args:
@@ -96,5 +100,9 @@ if __name__ == '__main__':
     vec1 = [i for i in range(1_000_000)]
     vec2 = np.arange(1_000_000)
 
-    read_grants_year(2022)
+    print(read_grants_year(2022).isna().sum())
+
+    
+
+    
     # gd = GrantsData()

@@ -12,7 +12,6 @@ def read(path: str) -> pd.DataFrame:
     A Pandas DataFrame
     """
 
-
     df = pd.read_csv(path)
 
     mapper = {
@@ -22,7 +21,7 @@ def read(path: str) -> pd.DataFrame:
             'Provider First Name': 'forename',
             'Provider First Line Business Practice Location Address': 'address',
             'Certification Date': 'cert_date',
-            'Provider Business Practice Location Address State Name': 'city',
+            'Provider Business Practice Location Address City Name': 'city',
             'Provider Business Practice Location Address State Name': 'state',
             'Provider Business Practice Location Address Country Code (If outside U.S.)': 'country'
         }
