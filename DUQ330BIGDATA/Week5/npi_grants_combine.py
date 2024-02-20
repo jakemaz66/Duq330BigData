@@ -1,6 +1,6 @@
 import pandas as pd
 from DUQ330BIGDATA.Week2 import read_data_exp
-import npi_reader
+from DUQ330BIGDATA.Week5 import npi_reader
 
 def read(path2: str) -> pd.DataFrame:
     """
