@@ -1,7 +1,17 @@
 import pandas as pd
 
-def read(path):
-    path = path
+
+def read(path: str) -> pd.DataFrame:
+    """
+    This function takes in a file path and returns a dataframe
+
+    Args:
+    path -> path of file
+
+    Return:
+    A Pandas DataFrame
+    """
+
 
     df = pd.read_csv(path)
 
@@ -9,7 +19,7 @@ def read(path):
             'NPI': 'npi',
             'Healthcare Provider Taxonomy Code_1': 'taxonomy_code',
             'Provider Last Name (Legal Name)': 'last_name',
-            'Provider First Name': 'first_name',
+            'Provider First Name': 'forename',
             'Provider First Line Business Practice Location Address': 'address',
             'Certification Date': 'cert_date',
             'Provider Business Practice Location Address State Name': 'city',
