@@ -7,6 +7,7 @@ import json
 import xgboost as xgb
 from sklearn.metrics import accuracy_score
 
+
 #Camel Case because it's a class
 class DistanceClassifier():
 
@@ -44,8 +45,6 @@ class DistanceClassifier():
         self.metadata['training_rows'] = len(labels)
 
         self.metadata['accuracy'] = self.assess(features_test, labels_test)
-
-        
 
     def predict(self, features: pd.DataFrame, proba: bool = False) -> numpy.ndarray:
         """
@@ -100,7 +99,6 @@ class DistanceClassifier():
         with open(metadata_path, 'w') as fo:
             json.dump(self.metadata, fo)
 
-
     def load(self, file_name):
         """
         load in a model filename with associated metadata from model_dir
@@ -116,7 +114,6 @@ class DistanceClassifier():
         with open(metadata_path) as fo:
             json.dump(self.metadata, fo)
         
-
     def assess(self, features, labels) -> float:
         """
         Returns the accuracy of the model
@@ -132,8 +129,6 @@ class DistanceClassifier():
         pred_labels = self.predict(features)
         return accuracy_score(labels, pred_labels)
 
-        
-    
     def _initialize_xgb_model(self):
         """Create a new xgbclassifier"""
         return xgb.XGBRegressor()

@@ -3,12 +3,23 @@ import numpy as np
 import pandas as pd
 import jarowinkler
 
+
 class NameDistance():
 
     def __init__(self, ft_model_path: str = 'data/cc.en.50.bin'):
+        #Loading fasttext model
         self.ft_model = fasttext.load_model(ft_model_path)
 
     def training_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        This function takes in the comined npi and grants dataframe and adds features for entity resolution like jarowinkler distances
+
+        Args:
+        df -> the combined npi and grants data frames
+
+        Returns:
+        A dataframe with distance features
+        """
         #Grants data has
         #last_name, forename, city, state, country
         #NPI Data has
@@ -17,7 +28,7 @@ class NameDistance():
 
         data_cols = df.columns
 
-
+        #Getting Features
         df['jw_dist_last_name'] = df.apply(lambda row: jarowinkler.jaro_similarity(row['grant_last_name'], row['npi_last_name']), axis=1)
 
         df['jw_dist_forename'] = df.apply(lambda row: jarowinkler.jaro_similarity(row['grant_forename'], row['npi_forename']), axis=1)
@@ -25,14 +36,20 @@ class NameDistance():
         df['match_city'] = df.apply(lambda row: row['grant_city'] == row['npi_city'], axis=1)
         df['match_state'] = df.apply(lambda row: row['grant_state'] == row['npi_state'], axis=1)
 
+        #Getting fast text sentence vectors
+        for dataset in ['grant', 'npi']:
+            for col in ['last_name', 'forename']:
+                df[f'vec_{dataset}_{col}'] = df[f'{dataset}_{col}'].apply(
+                    lambda x: self.ft_model.get_sentence_vector(x))
 
-        #df['ft_dist_last_name'] = df.apply(
-        #   lambda row: np.linalg.norm(row['vec_grant_last_name'] - 
-        #                            row['vec_npi_last_name']), axis=1)
+        #Calculating fasttext semantic differences
+        df['ft_dist_last_name'] = df.apply(
+            lambda row: np.linalg.norm(row['vec_grant_last_name'] - 
+                                       row['vec_npi_last_name']), axis=1)
         
-        return df.drop(columns=data_cols)
-     #.drop(columns=[
-     #       v for v in df.columns if 'vec_' in v])
+        #Returning Datafrane with only features
+        return df.drop(columns=data_cols).drop(columns=[
+            v for v in df.columns if 'vec_' in v])
     
     #Pass the output of this into a new classifier model from reusable classifier, train the classifier
 
