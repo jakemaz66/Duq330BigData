@@ -46,7 +46,7 @@ class DistanceClassifier():
 
         self.metadata['accuracy'] = self.assess(features_test, labels_test)
 
-    def predict(self, features: pd.DataFrame, proba: bool = False) -> numpy.ndarray:
+    def predict(self, features: pd.DataFrame, proba: bool = False):
         """
         Model predicts on the test_data
 
@@ -60,8 +60,8 @@ class DistanceClassifier():
         if len(self.metadata) == 0:
             raise ValueError("Model must be trained first")
 
-        if proba:
-             return self.model.predict_proba(features)[:, 0]
+        #if proba:
+        #     return self.model.predict_proba(features)[:, 0]
         return self.model.predict(features)
     
     def save(self, file_name: str, overwrite: bool = False):
@@ -127,7 +127,16 @@ class DistanceClassifier():
         
         """
         pred_labels = self.predict(features)
-        return accuracy_score(labels, pred_labels)
+        binary_labels = []
+
+        #pred_labels returns probabilities in numpy array, using thresholds to make integer predictions
+        for i in pred_labels:
+            if i > 0.5:
+                binary_labels.append(1)
+        else:
+                binary_labels.append(0)
+
+        return accuracy_score(labels, binary_labels)
 
     def _initialize_xgb_model(self):
         """Create a new xgbclassifier"""
