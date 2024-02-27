@@ -1,15 +1,18 @@
 from DUQ330BIGDATA.Week5 import distance_classifier, distances, npi_grants_combine
+from DUQ330BIGDATA.Week6 import data_simulator
 
 #Obtaining data using npi_grants_combine reacer file
 data = npi_grants_combine.read(r"data/npidata_pfile_20240205-20240211.csv")
 
+
 #Making training data by instantiating NameDistance Class and making features
 nd = distances.NameDistance()
 df = nd.training_data(data)
+df2 = nd.training_data(data_simulator.df)
 
 #Creating a classifier
 dc = distance_classifier.DistanceClassifier(r"C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\DUQ330BIGDATA\Week4", 'data')
 
 #Training and saving the model
-dc.train(df)
+dc.train(df2, data_simulator.df['label'])
 dc.save('distance_classifier')

@@ -10,6 +10,15 @@ class NameDistance():
         #Loading fasttext model
         self.ft_model = fasttext.load_model('data/cc.en.50.bin')
 
+    def combine_prediction_data(self, grants, npi) -> pd.DataFrame:
+        grants = grants.iloc[0:100].add_prefix('grant_')
+        npi = npi.iloc[0:100].add_prefix('npi_')
+
+        grants['merge_val'] = 1
+        npi['merge_val'] = 1
+
+        return grants.merge(npi, how='outer', on='merge_val')
+
     def training_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         This function takes in the comined npi and grants dataframe and adds features for entity resolution like jarowinkler distances
@@ -57,6 +66,9 @@ class NameDistance():
             v for v in df.columns if 'vec_' in v])
     
     #Pass the output of this into a new classifier model from reusable classifier, train the classifier
+
+    if __name__ == '__main__':
+        df = read
 
 
 
