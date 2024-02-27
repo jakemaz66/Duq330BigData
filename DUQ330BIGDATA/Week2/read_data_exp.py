@@ -76,8 +76,6 @@ class GrantsData:
 
 
 
-
-
 def read_grants_year(year) -> pd.DataFrame:
     """Read in Grants Data for a year and return as clean dataframe
 

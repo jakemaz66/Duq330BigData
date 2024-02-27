@@ -1,6 +1,4 @@
 from DUQ330BIGDATA.Week5 import distance_classifier, distances, npi_grants_combine
-from DUQ330BIGDATA.Week2 import read_data_exp 
-
 
 #Obtaining data using npi_grants_combine reacer file
 data = npi_grants_combine.read(r"data/npidata_pfile_20240205-20240211.csv")

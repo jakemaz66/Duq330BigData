@@ -8,7 +8,7 @@ class NameDistance():
 
     def __init__(self, ft_model_path: str = 'data/cc.en.50.bin'):
         #Loading fasttext model
-        self.ft_model = fasttext.load_model(ft_model_path)
+        self.ft_model = fasttext.load_model('data/cc.en.50.bin')
 
     def training_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -35,6 +35,11 @@ class NameDistance():
 
         df['match_city'] = df.apply(lambda row: row['grant_city'] == row['npi_city'], axis=1)
         df['match_state'] = df.apply(lambda row: row['grant_state'] == row['npi_state'], axis=1)
+
+        df['npi_last_name'].fillna('', inplace=True)
+        df['npi_forename'].fillna('', inplace=True)
+        df['grant_last_name'].fillna('', inplace=True)
+        df['grant_forename'].fillna('', inplace=True)
 
         #Getting fast text sentence vectors
         for dataset in ['grant', 'npi']:
