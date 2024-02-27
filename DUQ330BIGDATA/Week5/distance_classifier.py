@@ -108,10 +108,10 @@ class DistanceClassifier():
         """
 
         path = os.path.join(self.model_dir, file_name)
-        metadata_path = os.path.splittext(path)[0] + '_metadata.json'
+        metadata_path = os.path.splitext(path)[0] + '_metadata.json'
 
         self.model.load_model(path)
-        with open(metadata_path) as fo:
+        with open(metadata_path, 'w') as fo:
             json.dump(self.metadata, fo)
         
     def assess(self, features, labels) -> float:
