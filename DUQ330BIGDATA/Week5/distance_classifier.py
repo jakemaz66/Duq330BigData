@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score
 #Camel Case because it's a class
 class DistanceClassifier():
 
-    def __init__(self, model_dir, model):
+    def __init__(self, model_dir, model_type: str):
         """
         Constructor
 
@@ -44,7 +44,7 @@ class DistanceClassifier():
         self.metadata['training_date'] = datetime.datetime.now().strftime('%Y%m%d')
         self.metadata['training_rows'] = len(labels)
 
-        self.metadata['accuracy'] = self.assess(features_test, labels_test)
+        #self.metadata['accuracy'] = self.assess(features_test, labels_test)
 
     def predict(self, features: pd.DataFrame, proba: bool = False):
         """
@@ -100,19 +100,16 @@ class DistanceClassifier():
             json.dump(self.metadata, fo)
 
     def load(self, file_name):
-        """
-        load in a model filename with associated metadata from model_dir
-
-        Args:
-        file_name: name of the model file
+        """Load in a model filename with associated metadata from 
+        model_dir
         """
 
         path = os.path.join(self.model_dir, file_name)
         metadata_path = os.path.splitext(path)[0] + '_metadata.json'
-
         self.model.load_model(path)
-        with open(metadata_path, 'w') as fo:
-            json.dump(self.metadata, fo)
+
+        with open(metadata_path) as fr:
+            self.metadata = json.load(fr)
         
     def assess(self, features, labels) -> float:
         """
@@ -133,7 +130,7 @@ class DistanceClassifier():
         for i in pred_labels:
             if i > 0.5:
                 binary_labels.append(1)
-        else:
+            else:
                 binary_labels.append(0)
 
         return accuracy_score(labels, binary_labels)
