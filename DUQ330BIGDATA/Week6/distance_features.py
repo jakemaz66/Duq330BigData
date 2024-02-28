@@ -10,6 +10,7 @@ class StringDistanceFeatures():
 
     def combine_prediction_data(self, grants: pd.DataFrame, npi: pd.DataFrame) -> pd.DataFrame:
         """Combine grants and npi dataframes into pairs"""
+
         grants = grants.iloc[0:100].add_prefix('grant_')
         npi = npi.iloc[0:100].add_prefix('npi_')
         grants['merge_val'] = 1
@@ -20,11 +21,13 @@ class StringDistanceFeatures():
     def features_from_pairs(self, df: pd.DataFrame) -> pd.DataFrame:
         """Computes distance features from a dataframe of pairs
         of grant_ and npi_ data"""
+
         # grants data has:
             # last_name, forename, organization, city, state, country
         # NPI Data has: 
             # last_name, first_name, city, state, country, address
         # prefix of grant_ or npi_
+
         data_cols = df.columns
 
         df['jw_dist_last'] = df.apply(lambda row: 
@@ -52,8 +55,10 @@ class StringDistanceFeatures():
 
 
 if __name__ == '__main__':
+
     from DUQ330BIGDATA.Week2 import read_data_exp
     from DUQ330BIGDATA.Week5 import npi_reader
+    
     grants_df = read_data_exp.read_grants_year(2022)
     npi_df = npi_reader.read(r'C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\data\npidata_pfile_20240205-20240211.csv')
 

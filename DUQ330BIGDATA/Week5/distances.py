@@ -68,7 +68,8 @@ class NameDistance():
     #Pass the output of this into a new classifier model from reusable classifier, train the classifier
 
     if __name__ == '__main__':
-        df = read
+        pass
+
 
 
 
