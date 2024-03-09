@@ -44,7 +44,7 @@ class DistanceClassifier():
         self.metadata['training_date'] = datetime.datetime.now().strftime('%Y%m%d')
         self.metadata['training_rows'] = len(labels)
 
-        #self.metadata['accuracy'] = self.assess(features_test, labels_test)
+        self.metadata['accuracy'] = self.assess(features_test, labels_test)
 
     def predict(self, features: pd.DataFrame, proba: bool = False):
         """
@@ -60,8 +60,9 @@ class DistanceClassifier():
         if len(self.metadata) == 0:
             raise ValueError("Model must be trained first")
 
-        #if proba:
-        #     return self.model.predict_proba(features)[:, 0]
+        if proba:
+            return self.model.predict_proba(features)[:, 0]
+        
         return self.model.predict(features)
     
     def save(self, file_name: str, overwrite: bool = False):
@@ -137,4 +138,4 @@ class DistanceClassifier():
 
     def _initialize_xgb_model(self):
         """Create a new xgbclassifier"""
-        return xgb.XGBRegressor()
+        return xgb.XGBClassifier()

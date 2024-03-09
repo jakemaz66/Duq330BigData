@@ -5,10 +5,10 @@ import pandas as pd
 #Obtaining data using npi_grants_combine reacer file
 data = npi_grants_combine.read(r"data/npidata_pfile_20240205-20240211.csv")
 
-
 #Making training data by instantiating NameDistance Class and making features
 nd = distances.NameDistance()
 df = nd.training_data(data)
+
 #Making a training dataset from my simulated training data
 df2 = nd.training_data(data_simulator.df)
 
