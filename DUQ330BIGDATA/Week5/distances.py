@@ -2,7 +2,7 @@ import fasttext
 import numpy as np
 import pandas as pd
 import jarowinkler
-
+from sentence_transformers import SentenceTransformer
 
 class NameDistance():
 
@@ -49,6 +49,10 @@ class NameDistance():
         df['npi_forename'].fillna('', inplace=True)
         df['grant_last_name'].fillna('', inplace=True)
         df['grant_forename'].fillna('', inplace=True)
+
+        #model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        #embeddings = model.encode(df['grant_forename'])
+        #df['embedded_forename'] = embeddings
 
         #Getting fast text sentence vectors
         for dataset in ['grant', 'npi']:

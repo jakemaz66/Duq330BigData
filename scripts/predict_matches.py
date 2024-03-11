@@ -17,3 +17,5 @@ features = distances.NameDistance().training_data(test_data)
 #Collecting predictions, setting proba to true to get probabilities
 preds = model.predict(features, proba=True)
 
+test_data
+
