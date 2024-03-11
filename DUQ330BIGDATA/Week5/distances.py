@@ -50,9 +50,6 @@ class NameDistance():
         df['grant_last_name'].fillna('', inplace=True)
         df['grant_forename'].fillna('', inplace=True)
 
-        #model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-        #embeddings = model.encode(df['grant_forename'])
-        #df['embedded_forename'] = embeddings
 
         #Getting fast text sentence vectors
         for dataset in ['grant', 'npi']:
@@ -64,6 +61,18 @@ class NameDistance():
         df['ft_dist_last_name'] = df.apply(
             lambda row: np.linalg.norm(row['vec_grant_last_name'] - 
                                        row['vec_npi_last_name']), axis=1)
+        
+         
+        #model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        #for dataset in ['grant', 'npi']:
+        #    for col in ['last_name', 'forename']:
+        #        txts = df[col].to_list()
+        #        df[f'{col}_vec']= model.embed(txts)
+        
+        #Calculating huggingFace semantic differences
+        #df['hf_dist_last_name'] = df.apply(
+        #    lambda row: np.linalg.norm(row['grant_last_name_vec'] - 
+        #                               row['npi_last_name_vec']), axis=1)
         
         #Returning Datafrane with only features
         return df.drop(columns=data_cols).drop(columns=[
