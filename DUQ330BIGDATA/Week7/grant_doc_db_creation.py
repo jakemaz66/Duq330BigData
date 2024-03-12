@@ -11,6 +11,16 @@ CREATE TABLE IF NOT EXISTS npi (
 
 '''
 
+query2 = '''
+CREATE TABLE IF NOT EXISTS grants (
+    id INTEGER PRIMARY KEY,
+    lastname VARCHAR(100) NOT NULL,
+    forename VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+'''
+
 conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
 
