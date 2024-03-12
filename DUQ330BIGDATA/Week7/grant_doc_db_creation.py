@@ -6,6 +6,9 @@ CREATE TABLE IF NOT EXISTS npi (
     id INTEGER PRIMARY KEY,
     lastname VARCHAR(100) NOT NULL,
     forename VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -16,6 +19,9 @@ CREATE TABLE IF NOT EXISTS grants (
     id INTEGER PRIMARY KEY,
     lastname VARCHAR(100) NOT NULL,
     forename VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

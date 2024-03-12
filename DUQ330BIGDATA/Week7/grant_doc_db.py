@@ -24,12 +24,15 @@ def npi_csv_to_db(csv_path: str):
     df = npi_reader.read(csv_path)
 
     #Subsetting to desired columns
-    df = df[['last_name', 'forename']]
+    df = df[['last_name', 'forename', 'city', 'state', 'country']]
 
     #Renaming columns to specified names in database table
     mapper = {
         'last_name': 'lastname',
-        'forename': 'forename'
+        'forename': 'forename',
+        'city': 'city', 
+        'state': 'state', 
+        'country': 'country'
     }
     df = df.rename(columns=mapper)[mapper.values()]
 
@@ -55,12 +58,15 @@ def grants_csv_to_db(year: int):
     df = read_data_exp.read_grants_year(year)
 
     #Subsetting to desired columns
-    df = df[['last_name', 'forename']]
+    df = df[['last_name', 'forename', 'city', 'state', 'country']]
 
     #Renaming columns to specified names in database table
     mapper = {
         'last_name': 'lastname',
-        'forename': 'forename'
+        'forename': 'forename',
+        'city': 'city', 
+        'state': 'state', 
+        'country': 'country'
     }
     df = df.rename(columns=mapper)[mapper.values()]
 
