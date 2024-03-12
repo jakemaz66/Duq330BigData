@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS npi_grants_bridge (
 
 '''
 
-
 #Connecting to database
 conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
