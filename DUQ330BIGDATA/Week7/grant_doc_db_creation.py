@@ -1,6 +1,6 @@
 import sqlite3
 
-#Writing SQL Query
+#Writing SQL Queries to create tables
 query = '''
 CREATE TABLE IF NOT EXISTS npi (
     id INTEGER PRIMARY KEY,
@@ -21,12 +21,32 @@ CREATE TABLE IF NOT EXISTS grants (
 
 '''
 
+query3 = '''
+CREATE TABLE IF NOT EXISTS npi_grants_bridge (
+    id INTEGER PRIMARY KEY,
+    npi_id INTEGER,
+    grants_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (npi_id) REFERENCES npi(id),
+    FOREIGN KEY (grants_id) REFERENCES grants(id)
+);
+
+'''
+
+
+#Connecting to database
 conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
 
+#Executing Queries
+cursor.execute(query)
+cursor.execute(query2)
+cursor.execute(query3)
+
+
+#Selecting Version
 version_query = 'select sqlite_version()'
 cursor.execute(version_query)
-
 record = cursor.fetchall()
 print('version is', record)
 

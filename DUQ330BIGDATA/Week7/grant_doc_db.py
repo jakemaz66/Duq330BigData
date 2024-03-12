@@ -5,10 +5,10 @@ from DUQ330BIGDATA.Week2 import read_data_exp
 
 def db():
     """
-    This function creates a sqlalchemy engine connection
+    This function creates a sqlalchemy engine connection to the database
     """
     engine = sqlalchemy.create_engine(
-        'sqlite:///data/live_test_sqlite.db'
+        'sqlite:///data/grant_npi.db'
     )
 
     conn = engine.connect()
@@ -33,6 +33,9 @@ def npi_csv_to_db(csv_path: str):
     }
     df = df.rename(columns=mapper)[mapper.values()]
 
+    #Dropping NaNs to enforce NOT NULL parameter
+    df.dropna(inplace=True)
+
     #Translating pandas dataframe to database
     df.to_sql('npi',
               db(),
@@ -42,9 +45,6 @@ def npi_csv_to_db(csv_path: str):
               #method = 'multi'
               #chunksize=1000
               )
-
-    return df
-    
     
 def grants_csv_to_db(year: int):
     """
@@ -64,13 +64,16 @@ def grants_csv_to_db(year: int):
     }
     df = df.rename(columns=mapper)[mapper.values()]
 
+    #Dropping NaNs to enforce NOT NULL parameter
+    df.dropna(inplace=True)
+
     #Translating pandas dataframe to database
     df.to_sql('grants',
               db(),
               if_exists='append',
               index=False
               )
-
+    
 
 if __name__ == '__main__':
     npi_csv_to_db(r"C:\Users\jakem\OneDrive\Documents\Visual Studio 2017\Duq330BigData\data\npidata_pfile_20240205-20240211.csv")
