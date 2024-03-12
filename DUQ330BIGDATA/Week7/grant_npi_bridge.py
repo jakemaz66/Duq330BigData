@@ -5,14 +5,20 @@ conn = sqlite3.connect('data/grant_npi.db')
 cursor = conn.cursor()
 
 query = '''
-INSERT INTO npi_grants_bridge (npi_id, grants_id)
-SELECT npi.id AS npi_id, grants.id AS grants_id
-FROM npi, grants;
+INSERT INTO npi_grants_bridge(npi_id)
+SELECT id FROM npi;
+
+'''
+
+query2 = '''
+INSERT INTO npi_grants_bridge(grants_id)
+SELECT id FROM grants;
 
 '''
 
 #Executing Queries
 cursor.execute(query)
+cursor.execute(query2)
 
 #Selecting Version
 version_query = 'select sqlite_version()'
